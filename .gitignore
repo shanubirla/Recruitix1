@@ -1,0 +1,13 @@
+.qodo
+# Node & backend
+Backend/node_modules/
+Backend/.env
+
+# React frontend
+Frontend/node_modules/
+Frontend/.env
+
+# System
+.DS_Store
+*.log
+
