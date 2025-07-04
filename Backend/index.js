@@ -27,9 +27,9 @@ app.use(cookieParser());
 // Add ALL frontend domains you use
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://recruitix1.vercel.app/",
-  "https://recruitix1-shanu-birlas-projects.vercel.app/",
-  "https://recruitix1-git-main-shanu-birlas-projects.vercel.app/"
+  "https://recruitix1.vercel.app",
+  "https://recruitix1-shanu-birlas-projects.vercel.app",
+  "https://recruitix1-git-main-shanu-birlas-projects.vercel.app/\"
 ];
 const corsOptions = {
   origin: (origin, callback) => {
