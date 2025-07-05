@@ -19,7 +19,7 @@ const AdminJobs = lazy(() => import('./components/recruiter/AdminJobs.jsx'));
 const PostJob = lazy(() => import('./components/recruiter/PostJob.jsx'));
 const Applicants = lazy(() => import('./components/recruiter/Applicants.jsx'));
 const ProtectedRoute = lazy(() => import('./components/recruiter/ProtectedRoute.jsx'));
-const DashBoard = lazy(() => import('./components/Admin/DashBoard.jsx'));
+import Dashboard from './components/Admin/DashBoard.jsx';
 const AboutUs = lazy(() => import('./components/ui/AboutUs.jsx'));
 const Contact = lazy(() => import('./components/Concact.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
@@ -49,7 +49,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: '/admin/dashboard',
-    element: <DashBoard />
+    element: <Dashboard />
   },
   {
     path: '/profile',

@@ -45,7 +45,7 @@ const FilterCard = () => {
   }, [selectedValue, dispatch]);
   
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden  max-h-[80vh] overflow-y-auto">
       <div className="bg-gradient-to-r from-teal-600 to-indigo-600 px-4 py-3">
         <div className="flex items-center text-white">
           <Filter className="h-5 w-5 mr-2" />

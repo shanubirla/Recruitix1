@@ -11,13 +11,13 @@ const Browse = () => {
     useGetAllJobs();
     const { allJobs, loading } = useSelector((store) => store.job);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         return () => {
             dispatch(setSearchedQuery(""));
         };
     }, [dispatch]);
-    
+
     if (loading) {
         return (
             <div className="min-h-screen bg-gray-50">
@@ -30,12 +30,12 @@ const Browse = () => {
             </div>
         );
     }
-    
+
     return (
         <div className='min-h-screen bg-gray-50'>
             <Navbar />
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10'>
-                <h1 className='font-bold text-2xl text-gray-800 mb-6 border-b border-teal-100 pb-2'>
+                <h1 className='font-bold text-xl sm:text-2xl text-gray-800 mb-6 border-b border-teal-100 pb-2'>
                     Search Results <span className="text-teal-600">({allJobs.length})</span>
                 </h1>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' role="list">

@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 const Job = ({ job }) => {
   const navigate = useNavigate();
 
-
   const daysAgo = useMemo(() => {
     if (!job?.createdAt) return null;
     const createdAt = new Date(job?.createdAt);
@@ -19,7 +18,7 @@ const Job = ({ job }) => {
 
   return (
     <div className='p-5 rounded-md shadow-xl bg-white border border-gray-100 w-full'>
-   
+      {/* Date & Bookmark */}
       <div className='flex items-center justify-between mb-2'>
         <p className='text-sm text-gray-500'>
           {daysAgo === 0 ? 'Today' : `${daysAgo} days ago`}
@@ -29,7 +28,7 @@ const Job = ({ job }) => {
         </Button>
       </div>
 
-     
+      {/* Company Info */}
       <div className='flex items-center gap-3 my-2'>
         <Button className="p-6" variant="outline" size="icon">
           <Avatar>
@@ -42,13 +41,13 @@ const Job = ({ job }) => {
         </div>
       </div>
 
-      
+      {/* Job Title & Description */}
       <div className='mt-2'>
         <h1 className='font-bold text-lg mb-1'>{job?.title || 'Job Title'}</h1>
         <p className='text-sm text-gray-600 line-clamp-3'>{job?.description || 'Job description goes here'}</p>
       </div>
 
-      
+      {/* Tags */}
       <div className='flex flex-wrap items-center gap-2 mt-4'>
         <Badge className='text-blue-700 font-bold' variant="ghost">
           {job?.position || 'Position'} Positions
@@ -61,7 +60,7 @@ const Job = ({ job }) => {
         </Badge>
       </div>
 
-      
+      {/* Buttons */}
       <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-5 w-full'>
         <Button
           onClick={() => navigate(`/description/${job?._id}`)}
@@ -71,7 +70,7 @@ const Job = ({ job }) => {
           Details
         </Button>
         <Button
-          className="bg-gradient-to-r from-teal-600 to-indigo-600  hover:bg-[#5e0aa1] text-white w-full sm:w-auto"
+          className="bg-gradient-to-r from-teal-600 to-indigo-600 hover:bg-[#5e0aa1] text-white w-full sm:w-auto"
         >
           Save For Later
         </Button>

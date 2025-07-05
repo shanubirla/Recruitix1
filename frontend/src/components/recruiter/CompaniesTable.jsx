@@ -36,12 +36,12 @@ const CompaniesTable = () => {
 
   const DeleteCompany = async (companyId) => {
     try {
-      const res = await axios.delete(`${COMPANY_API_END_POINT}/delete/${companyId}`, { 
-        withCredentials: true 
+      const res = await axios.delete(`${COMPANY_API_END_POINT}/delete/${companyId}`, {
+        withCredentials: true,
       });
-      
+
       if (res.data.success) {
-        setFilteredCompanies(prev => prev.filter(company => company._id !== companyId));
+        setFilteredCompanies((prev) => prev.filter((company) => company._id !== companyId));
         toast.success('Company deleted successfully');
       } else {
         throw new Error(res.data.message || 'Failed to delete company');
@@ -59,104 +59,160 @@ const CompaniesTable = () => {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-      <Table>
-        <TableCaption className="text-slate-500 py-4">
-          {filteredCompanies.length > 0 
-            ? `Showing ${filteredCompanies.length} companies` 
-            : 'No companies found'}
-        </TableCaption>
-        <TableHeader className="bg-slate-50">
-          <TableRow>
-            <TableHead className="text-slate-700 font-medium">Company</TableHead>
-            <TableHead className="text-slate-700 font-medium">Location</TableHead>
-            <TableHead className="text-slate-700 font-medium">Status</TableHead>
-            <TableHead className="text-slate-700 font-medium">Registered</TableHead>
-            <TableHead className="text-right text-slate-700 font-medium">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredCompanies.length > 0 ? (
-            filteredCompanies.map((company) => (
-              <TableRow key={company._id} className="hover:bg-slate-50">
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <Avatar className="border border-slate-200">
-                      <AvatarImage 
-                        src={company.logo} 
-                        alt={company.name}
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-slate-100 text-slate-600">
-                        <Building2 className="h-4 w-4" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="font-medium text-slate-800">{company.name}</div>
-                      <div className="text-xs text-slate-500">{company.email}</div>
+      {/* Desktop View */}
+      <div className="hidden sm:block">
+        <Table>
+          <TableCaption className="text-slate-500 py-4">
+            {filteredCompanies.length > 0
+              ? `Showing ${filteredCompanies.length} companies`
+              : 'No companies found'}
+          </TableCaption>
+          <TableHeader className="bg-slate-50">
+            <TableRow>
+              <TableHead>Company</TableHead>
+              <TableHead>Location</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Registered</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredCompanies.length > 0 ? (
+              filteredCompanies.map((company) => (
+                <TableRow key={company._id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <Avatar className="border border-slate-200">
+                        <AvatarImage src={company.logo} alt={company.name} />
+                        <AvatarFallback>
+                          <Building2 className="h-4 w-4" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-slate-800">{company.name}</div>
+                        <div className="text-xs text-slate-500">{company.email}</div>
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-slate-600">
-                  {company.location || 'N/A'}
-                </TableCell>
-                <TableCell>
-                  <Badge 
-                    variant={company?.status === 'active' ? 'default' : 'secondary'}
-                    className={
-                      company?.status === 'active' 
-                        ? 'bg-teal-100 text-teal-800' 
-                        : 'bg-slate-100 text-slate-800'
-                    }
-                  >
-                    {company?.status || 'N/A'}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-slate-500">
-                  {formatDate(company.createdAt)}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-8 w-8 text-slate-500 hover:text-teal-600"
-                      >
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-40 p-2 space-y-1">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start text-slate-700 hover:bg-slate-100"
-                        onClick={() => navigate(`/admin/companies/${company._id}`)}
-                      >
-                        <Edit className="mr-2 h-4 w-4 text-teal-600" />
-                        Edit
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-start text-rose-600 hover:bg-rose-50"
-                        onClick={() => DeleteCompany(company._id)}
-                      >
-                        <Trash2 className="mr-2 h-4 w-4 text-rose-600" />
-                        Delete
-                      </Button>
-                    </PopoverContent>
-                  </Popover>
+                  </TableCell>
+                  <TableCell>{company.location || 'N/A'}</TableCell>
+                  <TableCell>
+                    <Badge
+                      className={
+                        company?.status === 'active'
+                          ? 'bg-teal-100 text-teal-800'
+                          : 'bg-slate-100 text-slate-800'
+                      }
+                    >
+                      {company?.status || 'N/A'}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>{formatDate(company.createdAt)}</TableCell>
+                  <TableCell className="text-right">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-40 p-2 space-y-1">
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start"
+                          onClick={() => navigate(`/admin/companies/${company._id}`)}
+                        >
+                          <Edit className="mr-2 h-4 w-4 text-teal-600" />
+                          Edit
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start text-rose-600 hover:bg-rose-50"
+                          onClick={() => DeleteCompany(company._id)}
+                        >
+                          <Trash2 className="mr-2 h-4 w-4 text-rose-600" />
+                          Delete
+                        </Button>
+                      </PopoverContent>
+                    </Popover>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  <Building2 className="mx-auto h-8 w-8 text-slate-300" />
+                  <p className="mt-2">No companies found matching your criteria</p>
                 </TableCell>
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center text-slate-500 py-8">
-                <Building2 className="mx-auto h-8 w-8 text-slate-300" />
-                <p className="mt-2">No companies found matching your criteria</p>
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* Mobile View */}
+      <div className="sm:hidden p-2 space-y-4">
+        {filteredCompanies.length > 0 ? (
+          filteredCompanies.map((company) => (
+            <div
+              key={company._id}
+              className="border border-slate-200 rounded-lg shadow-sm p-4 space-y-3"
+            >
+              <div className="flex items-center gap-3">
+                <Avatar className="border border-slate-200">
+                  <AvatarImage src={company.logo} alt={company.name} />
+                  <AvatarFallback>
+                    <Building2 className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-semibold text-slate-800">{company.name}</div>
+                  <div className="text-xs text-slate-500">{company.email}</div>
+                </div>
+              </div>
+              <div className="text-sm">
+                <strong>Location:</strong> {company.location || 'N/A'}
+              </div>
+              <div>
+                <Badge
+                  className={
+                    company?.status === 'active'
+                      ? 'bg-teal-100 text-teal-800'
+                      : 'bg-slate-100 text-slate-800'
+                  }
+                >
+                  {company?.status || 'N/A'}
+                </Badge>
+              </div>
+              <div className="text-xs text-slate-500">
+                <strong>Registered:</strong> {formatDate(company.createdAt)}
+              </div>
+              <div className="flex flex-col gap-2">
+                <Button
+                  size="sm"
+                  className="w-full"
+                  onClick={() => navigate(`/admin/companies/${company._id}`)}
+                >
+                  <Edit className="mr-2 h-4 w-4" />
+                  Edit
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  className="w-full"
+                  onClick={() => DeleteCompany(company._id)}
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete
+                </Button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-slate-500 py-6">
+            <Building2 className="mx-auto h-8 w-8 text-slate-300" />
+            <p className="mt-2">No companies found matching your criteria</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
