@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
 import Navbar from "./shared/Navbar.jsx";
 import { CONTACT_API_END_POINT } from "@/constants.js";
+import axios from "axios";
 const NewsList = () => {
   const [newsData, setNewsData] = useState([]);
   const [error, setError] = useState(null);
