@@ -37,4 +37,24 @@ router.post("/send-message", async (req, res) => {
   }
 });
 
+
+
+
+
+router.get("/news", async (req, res) => {
+  try {
+    const { data } = await axios.get("https://newsapi.org/v2/everything", {
+      params: {
+        q: "software engineering job",
+        apiKey: "6dcc6cbcb5aa45a1a62050b2096c08f0",
+      },
+    });
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 export default router;

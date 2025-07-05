@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
 import Navbar from "./shared/Navbar.jsx";
-
+import { CONTACT_API_END_POINT } from "@/constants.js";
 const NewsList = () => {
   const [newsData, setNewsData] = useState([]);
   const [error, setError] = useState(null);
 
   const getData = async () => {
     try {
-      const response = await fetch(
-        "https://newsapi.org/v2/everything?q=software+engineering+job&apiKey=6dcc6cbcb5aa45a1a62050b2096c08f0"
-      );
+      const response = await axios.get(`${CONTACT_API_END_POINT}/news`);
+
 
       if (!response.ok) {
         throw new Error(`API Error: ${response.status} ${response.statusText}`);
