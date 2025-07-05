@@ -8,27 +8,25 @@ const NewsList = () => {
   const [error, setError] = useState(null);
 
   const getData = async () => {
-    try {
-      const response = await axios.get(`${CONTACT_API_END_POINT}/news`);
+  try {
+    const response = await axios.get(`${CONTACT_API_END_POINT}/news`, {
+      withCredentials: true,
+    });
+    console.log("${CONTACT_API_END_POINT}/news")
+    const jsonData = response.data;
 
-
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status} ${response.statusText}`);
-      }
-
-      const jsonData = await response.json();
-
-      if (jsonData.articles && Array.isArray(jsonData.articles)) {
-        const dt = jsonData.articles.slice(0, 10);
-        setNewsData(dt);
-      } else {
-        throw new Error("Invalid API response structure");
-      }
-    } catch (err) {
-      console.error("Fetch Error:", err);
-      setError(err.message);
+    if (jsonData.articles && Array.isArray(jsonData.articles)) {
+      const dt = jsonData.articles.slice(0, 10);
+      setNewsData(dt);
+    } else {
+      throw new Error("Invalid API response structure");
     }
-  };
+  } catch (err) {
+    console.error("Fetch Error:", err);
+    setError(err.message);
+  }
+};
+
 
   useEffect(() => {
     getData();

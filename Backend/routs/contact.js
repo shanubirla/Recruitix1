@@ -1,6 +1,7 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import axios from "axios";  // ✅ You missed this import
 
 dotenv.config();
 
@@ -37,11 +38,8 @@ router.post("/send-message", async (req, res) => {
   }
 });
 
-
-
-
-
 router.get("/news", async (req, res) => {
+  console.log("🔔 /news route was hit");
   try {
     const { data } = await axios.get("https://newsapi.org/v2/everything", {
       params: {
@@ -51,10 +49,11 @@ router.get("/news", async (req, res) => {
     });
     res.json(data);
   } catch (err) {
+    console.error("Error fetching news:", err.message);
+    console.error("Error details:", err.response?.data);
     res.status(500).json({ error: err.message });
   }
 });
-
 
 
 export default router;
