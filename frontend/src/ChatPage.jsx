@@ -1,5 +1,5 @@
 import ChatSidebar from './ChatSidebar.jsx';
-import ChatInterface from './ChatInterface.jsx';
+import ChatInterface from './Chatinterface.jsx';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
