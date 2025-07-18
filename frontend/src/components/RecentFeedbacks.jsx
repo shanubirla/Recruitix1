@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, MessageCircle, RefreshCw, Tag } from "lucide-react";
 import { FEED_API_END_POINT } from "@/constants.js";
-
+import { useNavigate } from "react-router-dom";
 const RecentFeedbacks = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+
+  const navigate= useNavigate();
   const fetchFeedbacks = async () => {
     try {
       setLoading(true);
@@ -187,7 +189,7 @@ const RecentFeedbacks = () => {
               </p>
               <button 
                 className="bg-gradient-to-r from-teal-600 to-indigo-600 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
-                onClick={() =>window.location.href = 'https://recruitix.onrender.com/api/v1/feedback/get'}
+                onClick={() =>{navigate('/feedback')}}
               >
                 Leave a Review
               </button>
